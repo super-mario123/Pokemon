@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -32,7 +33,7 @@ public class PokemonView extends View {
     private Paint mBottomCirclePaint;
     private Paint mCenterPaint;
     private Paint mHeartPaint;
-    private int mRadius = DEFAULT_RADIUS;
+    private int mRadius = 0;
     private float separateDistance;
     private ValueAnimator separateAnimator;
     private ValueAnimator sweepAnimator;
@@ -52,6 +53,13 @@ public class PokemonView extends View {
 
     public PokemonView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.PokemonView);
+
+        mRadius = (int) typedArray.getDimension(R.styleable.PokemonView_radius,DEFAULT_RADIUS);
+
+        typedArray.recycle();
+
         init();
 
     }
